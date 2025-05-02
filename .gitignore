@@ -1,0 +1,33 @@
+# === Global ===
+*.log
+*.pyc
+__pycache__/
+.DS_Store
+.env
+.env.*
+
+# === Django ===
+Backend_django/db.sqlite3
+Backend_django/media/
+Backend_django/staticfiles/
+Backend_django/__pycache__/
+Backend_django/*.pyc
+Backend_django/.vscode/
+
+# === Node.js / Next.js ===
+/frontend_nextjs/node_modules/
+frontend_nextjs/.next/
+frontend_nextjs/out/
+frontend_nextjs/.env.local
+frontend_nextjs/.env.development
+frontend_nextjs/.env.production
+frontend_nextjs/package-lock.json
+frontend_nextjs/yarn.lock
+
+# === VS Code / IDEs ===
+.vscode/
+.idea/
+
+# === OS files ===
+Thumbs.db
+``
