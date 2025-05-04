@@ -1,9 +1,12 @@
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-
 import Header from "./component/header";
-import Blog from "./component/Blog";
 import "./globals.css";
+import BlogSection from "./component/Blog";
+
+import MockUpFE, { MockUpBE } from "./component/Mockup";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,20 +29,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 return (
-
-
-
-
-  
   <html lang="en" className="scroll-smooth">
-    <body>
-      
-      <Header />
-      <main >
-        {children}
-      </main>
-    </body>
-  </html>
-);
-}
+    <body id="home" className="relative flex items-center justify-center min-h-screen overflow-auto">
+      <main className="bg-gray-900 text-white">
+        {/* Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900"></div>
 
+        {/* Floating Glow Effects */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -left-20 -top-20 w-96 h-96 bg-purple-600 rounded-full filter blur-3xl opacity-20 animate-float1"></div>
+          <div className="absolute -right-20 -bottom-20 w-96 h-96 bg-blue-600 rounded-full filter blur-3xl opacity-20 animate-float2"></div>
+        </div>
+
+          <Header />
+
+          {children}
+     
+
+      
+              </main>
+            
+            </body>
+          </html>
+        );
+
+      }

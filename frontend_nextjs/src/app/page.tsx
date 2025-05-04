@@ -1,7 +1,9 @@
 "use client"; // for Next.js App Router
 import { useEffect, useState } from "react";
 import TypingHeader from "./component/TypingHeader";
+import MockUpFE, { MockUpBE } from "./component/Mockup";
 import BlogSection from "./component/Blog";
+
 
 
 export default function Home() {
@@ -26,38 +28,58 @@ export default function Home() {
 
   return (
    
-    <main>
-     
-      <section id="home" className="mt-36">
-        <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]">
-          <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_500px_at_50%_200px,rgba(94,66,174,0.3),transparent)]"></div>
+<main >
+  <section id="home" className=" flex items-center justify-center min-h-screen ">
+    {/* Main Content */}
+    <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between w-full max-w-7xl px-6 py-20">
+      {/* Text Section */}
+      <div className="w-full lg:w-1/2 text-center lg:text-left mb-12 lg:mb-0 space-y-6">
+        <TypingHeader />
+        
+        <p className="mt-4 text-gray-300 text-xl max-w-lg mx-auto lg:mx-0 leading-relaxed">
+          We're pioneering the future of AI with solutions that adapt, learn, and evolve. Experience the next generation of intelligent technology.
+        </p>
+        
+        <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+          <button className="px-8 py-3.5 rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-medium transition-all hover:shadow-lg hover:shadow-purple-500/30">
+            Get Started
+          </button>
+          <button className="px-8 py-3.5 rounded-lg border border-gray-700 hover:border-gray-600 text-white font-medium transition-all hover:bg-gray-800/50">
+            Learn More
+          </button>
         </div>
+      </div>
 
-        <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
-          <div className="font-light text-gray-500 sm:text-lg">
-            <TypingHeader />
-
-            {data ? (
-              <div className="mt-4 text-lg font-semibold text-gray-900 dark:text-white">
-                <p>{data.message}</p>
-                <p>Status: {data.status}</p>
-              </div>
-            ) : (
-              <p>Loading...</p>
-            )}
-            {/* Display CSRF Token */}
-            {csrfToken && (
-              <div className="mt-4 text-sm font-medium text-gray-600">
-                <p>CSRF Token: {csrfToken}</p>
-              </div>
-            )}
-          </div>
-          <div className="mt-8">
-            <img className="rounded-lg h-[700px] w-auto" src="/landing1.png" />
-          </div>
+      {/* Image Section with Floating Effect */}
+      <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
+        <div className="relative">
+          <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl opacity-20 blur-xl animate-pulse"></div>
+          <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-gray-800/50"></div>
+          <img
+            src="/landing1.png"
+            alt="AI Robot Looking to the Future"
+            className="relative h-[600px] w-auto max-w-full object-contain drop-shadow-[0_25px_35px_rgba(139,92,246,0.3)] hover:drop-shadow-[0_25px_35px_rgba(59,130,246,0.4)] transition-all duration-500"
+          />
+        <div className="absolute top-1/4 left-1/2 w-2 h-2 bg-blue-400 rounded-full filter blur-md animate-pulse"></div>
         </div>
-      </section>
-      <BlogSection />
-    </main>
+      </div>
+    </div>
+  </section>
+  <div className="flex flex-col space-y-8">
+    <div className="flex space-x-36">
+      <MockUpFE />
+      <MockUpBE />
+    </div>
+    <div className="bg-gray-700 p-4 rounded-lg shadow-lg">
+      <h2 className="text-lg font-semibold mb-2">API Response</h2>
+
+    </div>
+  </div>
+
+          <BlogSection />
+</main>
+
+
+
   );
 }

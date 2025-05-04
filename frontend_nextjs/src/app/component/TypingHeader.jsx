@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default function TypingHeader () {
-  const texts = ["Django & NextJS Fullstack ","MochAi"];
+  const texts = ["Django & NextJS Fullstack "];
   const [textIndex, setTextIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [charIndex, setCharIndex] = useState(0);
@@ -32,7 +32,7 @@ export default function TypingHeader () {
   }, [charIndex, isDeleting]);
 
 return (
-    <h1 className="text-5xl text-[#5e42ae] font-bold w-full text-center mt-10 whitespace-nowrap">
+    <h1 className="text-5xl text-[#ccc6de] font-bold w-full text-center mt-10 whitespace-nowrap">
         {displayText}
     </h1>
 );
