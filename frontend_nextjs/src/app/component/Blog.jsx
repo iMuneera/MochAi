@@ -2,11 +2,12 @@ import React from "react";
 import cmd from "../component/cmd"; // Importing cmd component
 import CMD from "../component/cmd";
 import MockUp from "./Mockup";
+
 export default function BlogSection() {
   // Tech facts with dark theme appropriate content
   const techFacts = [
-    "Next.js reduces TTI by 40% in production apps",
-    "Django's ORM handles 15K+ queries/sec",
+    "you can even create multiple root layouts WOW, Next. js 15 is here!",
+    "The website of (NASA) is built using Django",
     "LLMs can now generate 90% accurate React code",
     "WebAssembly executes at near-native speed"
   ];
@@ -29,52 +30,41 @@ export default function BlogSection() {
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row items-start gap-8 lg:gap-16">
-          {/* Left Side Cards */}
-          <div className="lg:w-5/12 space-y-10 relative">
-            <BlogCard 
-              title="Next.js 14 Performance"
-              description="How server components and partial prerendering revolutionize React apps."
-              fact={techFacts[0]}
-              tag="Frontend"
-              accent="purple"
-            />
-            
-            <BlogCard 
-              title="AI Integration Patterns"
-              description="Best practices for implementing AI features in web applications."
-              fact={techFacts[2]}
-              tag="AI"
-              accent="blue"
-            />
-          </div>
-
-          {/* Right Side Cards */}
-          <div className="lg:w-5/12 lg:ml-auto space-y-10 relative mt-10 lg:mt-0">
-            <BlogCard 
-              title="Django 5.0 Features"
-              description="New ORM capabilities and async improvements in Django."
-              fact={techFacts[1]}
-              tag="Backend"
-              accent="emerald"
-            />
-            
-            <BlogCard 
-              title="Modern Cloud Architecture"
-              description="Serverless patterns and edge computing configurations."
-              fact={techFacts[3]}
-              tag="DevOps"
-              accent="indigo"
-            />
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <BlogCard 
+            title="Next.js 15 Performance"
+            description="The React Framework for the Web."
+            fact={techFacts[0]}
+            tag="Frontend"
+            accent="purple"
+          />
+          
+          <BlogCard 
+            title="AI Integration Patterns"
+            description="Best practices for implementing AI features in web applications."
+            fact={techFacts[2]}
+            tag="AI"
+            accent="blue"
+          />
+          
+          <BlogCard 
+            title="Django 5.2 Features"
+            description="New ORM capabilities and async improvements in Django."
+            fact={techFacts[1]}
+            tag="Backend"
+            accent="emerald"
+          />
+          
+          <BlogCard 
+            title="Modern Cloud Architecture"
+            description="Serverless patterns and edge computing configurations."
+            fact={techFacts[3]}
+            tag="DevOps"
+            accent="indigo"
+          />
         </div>
       </div>
-      <div>
-
-      </div>
-   
     </section>
-  
   );
 }
 
@@ -107,9 +97,9 @@ const BlogCard = ({ title, description, fact, tag, accent }) => {
   };
 
   return (
-    <div className="group relative">
+    <div className="group relative h-full">
       {/* Main Card */}
-      <div className={`bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border-l-4 ${accentColors[accent].border} relative z-10 transition-all duration-300 hover:bg-gray-800/70 hover:-translate-y-1 shadow-lg shadow-black/20`}>
+      <div className={`h-full bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border-l-4 ${accentColors[accent].border} relative z-10 transition-all duration-300 hover:bg-gray-800/70 hover:-translate-y-1 shadow-lg shadow-black/20`}>
         <div className="flex justify-between items-start mb-4">
           <span className={`px-3 py-1 text-xs font-bold ${accentColors[accent].text} bg-gray-900/80 rounded-full`}>
             {tag}
@@ -133,7 +123,5 @@ const BlogCard = ({ title, description, fact, tag, accent }) => {
         <p className="text-sm text-gray-200 italic">"Did you know? {fact}"</p>
       </div>
     </div>
-  
-
   );
 };

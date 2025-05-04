@@ -28,29 +28,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-return (
-  <html lang="en" className="scroll-smooth">
-    <body id="home" className="relative flex items-center justify-center min-h-screen overflow-auto">
-      <main className="bg-gray-900 text-white">
+  return (
+    <html lang="en" className="scroll-smooth">
+      <body className={`${geistSans.variable} ${geistMono.variable} bg-gray-900 text-white`}>
         {/* Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900"></div>
+        <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 -z-50"></div>
 
         {/* Floating Glow Effects */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="fixed inset-0 overflow-hidden pointer-events-none -z-40">
           <div className="absolute -left-20 -top-20 w-96 h-96 bg-purple-600 rounded-full filter blur-3xl opacity-20 animate-float1"></div>
           <div className="absolute -right-20 -bottom-20 w-96 h-96 bg-blue-600 rounded-full filter blur-3xl opacity-20 animate-float2"></div>
         </div>
 
-          <Header />
-
-          {children}
-     
-
-      
-              </main>
-            
-            </body>
-          </html>
-        );
-
-      }
+        <Header />
+        {children}
+      </body>
+    </html>
+  );
+}

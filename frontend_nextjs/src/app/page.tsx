@@ -1,7 +1,7 @@
 "use client"; // for Next.js App Router
 import { useEffect, useState } from "react";
 import TypingHeader from "./component/TypingHeader";
-import MockUpFE, { MockUpBE } from "./component/Mockup";
+import MockUpFE, { MockUpBE, MockUpLastLine } from "./component/Mockup";
 import BlogSection from "./component/Blog";
 
 
@@ -62,21 +62,31 @@ export default function Home() {
           />
         <div className="absolute top-1/4 left-1/2 w-2 h-2 bg-blue-400 rounded-full filter blur-md animate-pulse"></div>
         </div>
+
       </div>
+   
     </div>
+ 
   </section>
-  <div className="flex flex-col space-y-8">
-    <div className="flex space-x-36">
+  <section className=" py-12"> {/* Added container with background */}
+  <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 mb-4 text-center">
+    How to set it up ?
+  </h1>
+
+  <div className="flex flex-col items-center text-white">
+    <div className="flex space-x-36 justify-center">
       <MockUpFE />
       <MockUpBE />
     </div>
-    <div className="bg-gray-700 p-4 rounded-lg shadow-lg">
-      <h2 className="text-lg font-semibold mb-2">API Response</h2>
-
+    <div className="flex justify-center">
+      <MockUpLastLine />
     </div>
   </div>
-
-          <BlogSection />
+</section>
+<div className="min-h-screen">  
+  <BlogSection />
+   </div>
+        
 </main>
 
 

@@ -31,15 +31,8 @@ export default function CMD({
             <pre data-prefix={prompt} className="text-success relative group">
               <code className="flex items-center">
                 <span className="mr-2">{cmd.command}</span>
-                <button
-                  onClick={() => handleCopy(cmd.command)}
-                  className="opacity-100 transition-opacity duration-200
-                    text-xs px-2 py-1 ml-2 bg-neutral text-neutral-content rounded
-                    hover:bg-neutral-focus focus:outline-none"
-                  aria-label="Copy command"
-                >
-                  Copy
-                </button>
+            
+                 
               </code>
             </pre>
             {cmd.output && (
