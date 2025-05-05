@@ -14,6 +14,7 @@ export default function Header() {
             <NavLink href="/" >Home</NavLink>
             <NavLink href="/#blog">Blog</NavLink>
             <NavLink href="/library">library</NavLink>
+            <NavLink href="/Movies">Movie</NavLink>
 
           </nav>
 

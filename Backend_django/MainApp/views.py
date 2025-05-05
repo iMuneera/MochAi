@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.middleware.csrf import get_token
-from .models import get_book_info
+from .models import get_book_info, get_movie_info
 from .models import Book
 
 def send_data(request):
@@ -104,3 +104,25 @@ def viewlibrary(request):
         {'books': list(books)},
         status=200
     )
+
+
+@csrf_exempt
+def submit_Movie(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        movie_name = data.get('Movie')
+        movie_info = get_movie_info(movie_name)
+        if movie_info:
+            Title, PosterURL, Plot = movie_info
+            response_data = {
+                'message': 'Movie information retrieved successfully',
+                'movie_info': {
+                    'title': Title,
+                    'poster': PosterURL,
+                    'plot': Plot,
+                }
+            }
+            return JsonResponse(response_data, status=200)
+        else:
+            return JsonResponse({"error": "Movie information could not be retrieved"}, status=404)
+    return JsonResponse({"error": "Invalid request method"}, status=400)
