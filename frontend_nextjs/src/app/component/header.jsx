@@ -10,17 +10,14 @@ export default function Header() {
       
 
           {/* Desktop Navigation - Centered */}
-          <nav className="hidden md:flex items-center space-x-6">
-            <NavLink href="/">Home</NavLink>
-            <NavLink href="#blog">Blog</NavLink>
-            <NavLink href="#features">Features</NavLink>
-            <NavLink href="#contact">Contact</NavLink>
+          <nav className="hidden md:flex items-center space-x-6 lg:space-x-8 " >
+            <NavLink href="/" >Home</NavLink>
+            <NavLink href="/#blog">Blog</NavLink>
+            <NavLink href="/library">library</NavLink>
+
           </nav>
 
-          {/* Sign Up Button - Right side */}
-          <button className="hidden md:block px-4 py-1.5 text-sm rounded-lg bg-gradient-to-r from-purple-600 to-blue-600 text-white font-medium hover:shadow-purple-500/30 hover:shadow-lg transition-all">
-            Sign up
-          </button>
+     
 
           {/* Mobile menu button */}
           <button className="md:hidden p-1 text-gray-400 hover:text-white">
@@ -35,7 +32,7 @@ export default function Header() {
 }
 
 const NavLink = ({ href, children }) => (
-  <Link href={href} className="px-3 py-1.5 text-sm font-medium text-gray-300 hover:text-white transition-colors relative">
+  <Link href={href} className="px-3 py-1.5 font-bold text-md  text-gray-300 hover:text-white transition-colors relative  underline-decoration-2 underline-offset-5 decoration-transparent group">
     {children}
     <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-500 to-blue-500 group-hover:w-4/5 transition-all duration-300"></span>
   </Link>

@@ -13,7 +13,7 @@ export default function Home() {
   }
 
   const [data, setData] = useState<Data | null>(null);
-  const [csrfToken, setCsrfToken] = useState<string | null>(null);
+
 
 
 
