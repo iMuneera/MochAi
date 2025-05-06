@@ -111,6 +111,32 @@ def viewmovie(request):
         {'movies': list(movies)},
         status=200
     )
+@csrf_exempt
+def delete_movie(request, movie_id):
+    if request.method == 'DELETE':
+        try:
+            movie = Movie.objects.get(id=movie_id)
+            movie.delete()
+            return JsonResponse({'success': True})
+        except Movie.DoesNotExist:
+            return JsonResponse({'error': 'Movie not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+
+@csrf_exempt
+def delete_book(request, book_id):
+    if request.method == 'DELETE':
+        try:
+            book = Book.objects.get(id=book_id)
+            book.delete()
+            return JsonResponse({'success': True})
+        except Book.DoesNotExist:
+            return JsonResponse({'error': 'Book not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
 
 @csrf_exempt
 def submit_Movie(request):

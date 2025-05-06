@@ -67,7 +67,7 @@ export default function Page() {
     };
 
     return (
-        <div className="min-h-screen">
+        <div className="min-h-screen my-32">
             <Cookies />
             
             <div className="container mx-auto px-4 py-12 max-w-6xl">

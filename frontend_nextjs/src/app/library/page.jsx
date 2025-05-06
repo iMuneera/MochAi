@@ -71,11 +71,11 @@ export default function Page() {
     };
 
     return (
-        <div className="min-h-screen ">
+        <div className="min-h-screen my-32 ">
             <Cookies />
             
             {/* Main Container */}
-            <div className="container mx-auto px-4 py-12 max-w-6xl">
+            <div className="container mx-auto px-4 py-12 max-w-6xl ">
  
                                 <section className="bg-gray-800/50 backdrop-blur-lg rounded-2xl p-8 mb-8 border border-gray-700 shadow-2xl">
                                     <h1 className="text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
@@ -158,12 +158,10 @@ export default function Page() {
                                         </div>
                                     )}
                                 </section>
-                                
+                                <h1 className="text-2xl md:text-3xl font-bold text-white mb-6">My Book Collection</h1>
                                 {/* Library Section */}
-                <section className="bg-gray-800/50 backdrop-blur-lg rounded-2xl p-8 border border-gray-700 shadow-2xl">
-                    <h2 className="text-3xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
-                        My Library
-                    </h2>
+                <section className=" backdrop-blur-lg rounded-2xl p-8 ">
+              
                     <ViewLibrary key={libraryUpdated} /> {/* Key prop forces re-render */}
                 </section>
             </div>

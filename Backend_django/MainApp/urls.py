@@ -9,4 +9,6 @@ urlpatterns = [
     path('viewmovie/', views.viewmovie, name='view_movie'),
     path('submit_Movie/', views.submit_Movie, name='submit_Movie'),
     path('add_movie/', views.add_movie, name='add_movie'),
+   path('viewmovie/<int:movie_id>/', views.delete_movie, name='delete-movie'),
+    path('viewlibrary/<int:book_id>/', views.delete_book, name='delete-book'),
 ]
