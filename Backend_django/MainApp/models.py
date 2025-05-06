@@ -61,6 +61,7 @@ class Movie(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=200)
     poster = models.URLField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
