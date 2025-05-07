@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'MainApp',
     'corsheaders',
     'rest_framework',
+    'Movies',
+    'Books',
     
 
 
