@@ -4,25 +4,59 @@ import React from 'react';
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full">
-      {/* Centered container */}
-      <div className="relative mx-auto max-w-4xl">
-        <div className="flex items-center justify-between h-16 px-6rounded-b-xl ">
-      
-
-          {/* Desktop Navigation - Centered */}
-          <nav className="hidden md:flex items-center space-x-6 lg:space-x-8 " >
-            <NavLink href="/" >Home</NavLink>
-            <NavLink href="/#blog">Blog</NavLink>
-            <NavLink href="/library">library</NavLink>
-            <NavLink href="/Movies">Movie</NavLink>
-
+      <div className="relative mx-auto max-w-4xl px-4">
+        <div className="flex items-center justify-between h-20">
+          <nav className="hidden md:flex items-center space-x-10">
+            <Link 
+              href="/" 
+              className="text-lg text-gray-800 hover:text-black dark:text-gray-300 dark:hover:text-white
+              transition-all duration-300 ease-out
+              hover:scale-105 hover:underline hover:underline-offset-4"
+            >
+              Home
+            </Link>
+            <Link 
+              href="/#blog" 
+              className="text-lg text-gray-800 hover:text-black dark:text-gray-300 dark:hover:text-white
+              transition-all duration-300 ease-out
+              hover:scale-105 hover:underline hover:underline-offset-4"
+            >
+              Blog
+            </Link>
+            <div className="relative group">
+              <button className="text-lg text-gray-800 hover:text-black dark:text-gray-300 dark:hover:text-white
+              transition-all duration-300 ease-out
+              hover:scale-105 hover:underline hover:underline-offset-4 flex items-center">
+                Interests
+                <svg className="ml-1.5 h-4 w-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div className="absolute left-0 mt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible 
+              transition-all duration-300 origin-top z-50 space-y-1">
+                <Link 
+                  href="/library" 
+                  className="block text-base text-gray-800 hover:text-black dark:text-gray-300 dark:hover:text-white
+                  transition-all duration-300
+                  hover:scale-[1.02] hover:underline hover:underline-offset-4"
+                >
+                  Library
+                </Link>
+                <Link 
+                  href="/Movies" 
+                  className="block text-base text-gray-800 hover:text-black dark:text-gray-300 dark:hover:text-white
+                  transition-all duration-300
+                  hover:scale-[1.02] hover:underline hover:underline-offset-4"
+                >
+                  Movies
+                </Link>
+              </div>
+            </div>
           </nav>
 
-     
-
-          {/* Mobile menu button */}
-          <button className="md:hidden p-1 text-gray-400 hover:text-white">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <button className="md:hidden p-2 text-gray-800 hover:text-black dark:text-gray-300 dark:hover:text-white
+          transition-all duration-300 hover:scale-110">
+            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
@@ -31,10 +65,3 @@ export default function Header() {
     </header>
   );
 }
-
-const NavLink = ({ href, children }) => (
-  <Link href={href} className="px-3 py-1.5 font-bold text-md  text-gray-300 hover:text-white transition-colors relative  underline-decoration-2 underline-offset-5 decoration-transparent group">
-    {children}
-    <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-px bg-gradient-to-r from-purple-500 to-blue-500 group-hover:w-4/5 transition-all duration-300"></span>
-  </Link>
-);
