@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import Rating from '@mui/material/Rating';
 export default function ViewMovie() {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -92,7 +92,26 @@ export default function ViewMovie() {
                                     </div>
                                     <h3 className="font-bold text-lg text-white line-clamp-2 mb-2">{movie.title}</h3>
                                     <p className="text-gray-300 text-sm line-clamp-3">{movie.description}</p>
+                                     <div className="flex items-center">
+                                    <Rating
+                                        name="read-only"
+                                        value={movie.rating || 0}
+                                        readOnly
+                                        precision={0.5}
+                                        size="medium"
+                                    />
+                                    {movie.rating && (
+                                        <span className="ml-2 text-gray-300">
+                                            {movie.rating.toFixed(1)}
+                                        </span>
+                                    )}
                                 </div>
+
+
+                                </div>
+
+
+
                                 
                                 <div className="mt-4 pt-4 border-t border-gray-700 flex justify-end">
                                     <button

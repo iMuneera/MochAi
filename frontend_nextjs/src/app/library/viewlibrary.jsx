@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Rating from '@mui/material/Rating';
 
 export default function ViewLibrary() {
     const [books, setBooks] = useState([]);
@@ -92,15 +93,29 @@ export default function ViewLibrary() {
                             <div className="space-y-4">
                                 <h3 className="text-xl font-bold text-white line-clamp-2">{book.title}</h3>
                                 <p className="text-lg text-blue-400">by {book.author}</p>
-                                
+                                <div className="flex items-center">
+                                    <Rating
+                                        name="read-only"
+                                        value={book.rating || 0}
+                                        readOnly
+                                        precision={0.5}
+                                        size="medium"
+                                    />
+                                    {book.rating && (
+                                        <span className="ml-2 text-gray-300">
+                                            {book.rating.toFixed(1)}
+                                        </span>
+                                    )}
+                                </div>
+
+
+
+                                <div className="mt-4 pt-4 border-t border-gray-700 flex justify-end">
                                 <button
                                     onClick={() => handleDelete(book.id)}
                                     disabled={deletingId === book.id}
-                                    className={`w-full py-3 px-4 rounded-lg font-semibold text-lg flex items-center justify-center gap-2 transition-colors duration-200 ${
-                                        deletingId === book.id 
-                                            ? 'bg-gray-700 text-gray-400' 
-                                            : 'bg-red-600 hover:bg-red-700 text-white'
-                                    }`}
+                                    className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-sm rounded-md transition-colors duration-200 flex items-center" 
+                                    
                                 >
                                     {deletingId === book.id ? (
                                         <>
@@ -119,6 +134,7 @@ export default function ViewLibrary() {
                                         </>
                                     )}
                                 </button>
+                                </div>
                             </div>
                         </div>
                     ))}

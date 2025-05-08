@@ -1,7 +1,7 @@
 from django.db import models
 from dotenv import load_dotenv
 import os, requests
-
+from django.core.validators import MinValueValidator, MaxValueValidator
 # Create your models here.
 def get_movie_info(movie_name):
     load_dotenv()
@@ -32,3 +32,4 @@ class Movie(models.Model):
     poster = models.URLField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    rating = models.IntegerField(blank=True, null=True , validators=[MinValueValidator(1), MaxValueValidator(5)])  

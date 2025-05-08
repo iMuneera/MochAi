@@ -40,7 +40,7 @@ export default function Header() {
                   transition-all duration-300
                   hover:scale-[1.02] hover:underline hover:underline-offset-4"
                 >
-                  Library
+                  Books
                 </Link>
                 <Link 
                   href="/Movies" 

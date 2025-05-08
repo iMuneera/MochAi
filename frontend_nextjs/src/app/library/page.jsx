@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import Cookies from '../component/cookies'
 import ViewLibrary from './viewlibrary'
+import BasicRating from '../component/BasicRating';
 
 export default function Page() {
     const [bookInfo, setBookInfo] = useState(null);
@@ -10,6 +11,7 @@ export default function Page() {
     const [error, setError] = useState(null);
     const [libraryStatus, setLibraryStatus] = useState(null);
     const [libraryUpdated, setLibraryUpdated] = useState(false); // New state for refresh trigger
+    const [rating, setRating] = useState(2); 
 
     const handleSubmit = async () => {
         setLoading(true);
@@ -51,15 +53,17 @@ export default function Page() {
                 body: JSON.stringify({
                     title: bookInfo.title,
                     author: bookInfo.author,
-                    cover_url: bookInfo.cover_url
+                    cover_url: bookInfo.cover_url,
+                    rating: rating 
                 }),
             });
 
             if (response.ok) {
                 setLibraryStatus('Book added successfully!');
-                setLibraryUpdated(!libraryUpdated); // Trigger library refresh
-                setBookInfo(null); // Clear current book info
-                setInputValue(''); // Clear search input
+                setLibraryUpdated(!libraryUpdated);  // Trigger re-render of ViewLibrary component
+                setBookInfo(null); 
+                setInputValue(''); 
+                setRating(2); 
             } else if (response.status === 202) {
                 setLibraryStatus('Book already exists in your library!');
             }
@@ -147,6 +151,14 @@ export default function Page() {
                                                         </svg>
                                                         Add to My Library
                                                     </button>
+                                                    <div className="mt-4">
+                                                   <BasicRating 
+                                                                value={rating}
+                                                                onChange={(event, newValue) => {
+                                                                    setRating(newValue);
+                                                                }}
+                                                            />
+                                                    </div>
                                                 </div>
                                             </div>
                                             

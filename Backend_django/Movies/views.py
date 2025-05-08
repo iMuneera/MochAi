@@ -7,7 +7,7 @@ from .models import Movie, get_movie_info
 
 @csrf_exempt
 def viewmovie(request):
-    movies = Movie.objects.all().values('id', 'title', 'description', 'poster')
+    movies = Movie.objects.all().values('id', 'title', 'description', 'poster','rating')
     return JsonResponse(
         {'movies': list(movies)},
         status=200
@@ -43,6 +43,7 @@ def submit_Movie(request):
                         'title': Title,
                         'poster': PosterURL,
                         'plot': Plot,
+                        'rating': 2
                     }
                 }
                 return JsonResponse(response_data, status=200)
@@ -66,10 +67,22 @@ def add_movie(request):
                 status=202
             )
         
+
+        rating = data.get('rating', None)
+        if rating is not None:
+            try:
+                rating = int(rating)
+                if rating < 0 or rating > 5:  # Assuming 0-5 rating scale
+                 rating = None
+            except (ValueError, TypeError):
+                rating = None
+
+        
         movie = Movie.objects.create(
             title=data.get('title'),
             description=data.get('description', ''),
-            poster=data.get('poster', '')
+            poster=data.get('poster', ''),
+            rating=data.get('rating', None)  
         )
         
         movie_data = {
@@ -77,7 +90,9 @@ def add_movie(request):
             'title': movie.title,
             'description': movie.description,
             'poster': movie.poster,
-            'created_at': movie.created_at.strftime('%Y-%m-%d %H:%M:%S')
+            'created_at': movie.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'rating': rating
+
         }
         
         return JsonResponse({

@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import Cookies from '../component/cookies'
 import ViewMovie from './viewmovie';
-
+import BasicRating from '../component/BasicRating';
 
 export default function Page() {
     const [movieInfo, setMovieInfo] = useState(null);
@@ -10,6 +10,7 @@ export default function Page() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [moviesUpdated, setMoviesUpdated] = useState(false);
+    const [rating, setRating] = useState(2); 
 
     const handleSubmit = async () => {
         setLoading(true);
@@ -49,13 +50,15 @@ export default function Page() {
                 body: JSON.stringify({
                     title: movieInfo.title,
                     description: movieInfo.plot,
-                    poster: movieInfo.poster
+                    poster: movieInfo.poster,
+                    rating: rating 
                 }),
             });
 
             const data = await response.json();
             if (response.ok) {
                 setMoviesUpdated(!moviesUpdated); // Trigger refresh
+                setRating(2); 
             } else {
                 setError(data.message || 'Failed to add movie');
             }
@@ -144,6 +147,12 @@ export default function Page() {
                                         </svg>
                                         Add to My Library
                                     </button>
+                                    <div className="mt-4">
+                                    <BasicRating 
+                                    value={rating}
+                                    onChange={(event, newValue) => {
+                                    setRating(newValue);}} />
+                                </div>
                                 </div>
                             </div>
                         </div>

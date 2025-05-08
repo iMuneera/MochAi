@@ -21,6 +21,16 @@ def add_to_library(request):
         existing_book = Book.objects.filter(
             title=data.get('title')
         ).first()
+        rating = data.get('rating', None)
+        if rating is not None:
+            try:
+                rating = int(rating)
+                if rating < 0 or rating > 5:  # Assuming 0-5 rating scale
+                 rating = None
+            except (ValueError, TypeError):
+                rating = None
+
+
         
         if existing_book:
             print("Book already exists")
@@ -34,7 +44,8 @@ def add_to_library(request):
             title=data.get('title'),
             author=data.get('author', 'Unknown'),
             description=data.get('description', ''),
-            cover_url=data.get('cover_url', '')
+            cover_url=data.get('cover_url', ''),
+            rating = data.get('rating', None)  
         )
         
         print("Book created with ID:", book.id)
@@ -46,7 +57,8 @@ def add_to_library(request):
             'author': book.author,
             'description': book.description,
             'cover_url': book.cover_url,
-            'created_at': book.created_at.strftime('%Y-%m-%d %H:%M:%S')
+            'created_at': book.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'rating': book.rating
         }
         
         return JsonResponse({
@@ -80,7 +92,8 @@ def submit_name(request):
                 'title': title,
                 'author': author,
                 'cover_url': cover_url,
-                'description': description 
+                'description': description,
+                'rating':2
             }
         }
         
@@ -90,7 +103,7 @@ def submit_name(request):
 
   
 def viewlibrary(request):
-    books = Book.objects.all().values('id', 'title', 'author', 'description', 'cover_url')
+    books = Book.objects.all().values('id', 'title', 'author', 'description', 'cover_url','rating')
     print("Books in library:", books)
     return JsonResponse(
         {'books': list(books)},
