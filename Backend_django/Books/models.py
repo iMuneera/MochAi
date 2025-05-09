@@ -26,3 +26,4 @@ class Book(models.Model):
     cover_url = models.URLField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     rating = models.IntegerField(blank=True, null=True , validators=[MinValueValidator(1), MaxValueValidator(5)])  
+    review = models.TextField(blank=True, null=True ,max_length=500)

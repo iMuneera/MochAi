@@ -32,4 +32,5 @@ class Movie(models.Model):
     poster = models.URLField(blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    rating = models.IntegerField(blank=True, null=True , validators=[MinValueValidator(1), MaxValueValidator(5)])  
+    rating = models.IntegerField(blank=True, null=True , validators=[MinValueValidator(1), MaxValueValidator(5)])
+    review = models.TextField(blank=True, null=True)  

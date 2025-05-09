@@ -76,7 +76,7 @@ export default function Page() {
             <div className="container mx-auto px-4 py-12 max-w-6xl">
                 <section className="bg-gray-800/50 backdrop-blur-lg rounded-2xl p-8 mb-8 border border-gray-700 shadow-2xl">
                     <h1 className="text-4xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
-                        MovieFinder 
+                        ShowFinder 
                     </h1>
                     
                     <div className="flex flex-col md:flex-row gap-4 items-center justify-center mb-6">

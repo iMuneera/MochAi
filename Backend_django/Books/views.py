@@ -103,7 +103,7 @@ def submit_name(request):
 
   
 def viewlibrary(request):
-    books = Book.objects.all().values('id', 'title', 'author', 'description', 'cover_url','rating')
+    books = Book.objects.all().values('id', 'title', 'author', 'description', 'cover_url','rating', 'review')
     print("Books in library:", books)
     return JsonResponse(
         {'books': list(books)},
@@ -117,6 +117,32 @@ def delete_book(request, book_id):
             book = Book.objects.get(id=book_id)
             book.delete()
             return JsonResponse({'success': True})
+        except Book.DoesNotExist:
+            return JsonResponse({'error': 'Book not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+@csrf_exempt
+def review_book(request, book_id):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            review = data.get('review')
+            rating = data.get('rating')
+            
+            book = Book.objects.get(id=book_id)
+            book.review = review
+            book.rating = rating
+            book.save()
+            return JsonResponse({
+        'success': True,
+        'review': {
+        'id': book.id,
+        'content': book.review,
+        'rating': book.rating
+          }
+}, status=200)
         except Book.DoesNotExist:
             return JsonResponse({'error': 'Book not found'}, status=404)
         except Exception as e:

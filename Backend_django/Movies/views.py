@@ -7,7 +7,7 @@ from .models import Movie, get_movie_info
 
 @csrf_exempt
 def viewmovie(request):
-    movies = Movie.objects.all().values('id', 'title', 'description', 'poster','rating')
+    movies = Movie.objects.all().values('id', 'title', 'description', 'poster','rating','review')
     return JsonResponse(
         {'movies': list(movies)},
         status=200
@@ -43,7 +43,8 @@ def submit_Movie(request):
                         'title': Title,
                         'poster': PosterURL,
                         'plot': Plot,
-                        'rating': 2
+                        'rating': 2,
+                        'review': ''
                     }
                 }
                 return JsonResponse(response_data, status=200)
@@ -91,7 +92,9 @@ def add_movie(request):
             'description': movie.description,
             'poster': movie.poster,
             'created_at': movie.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-            'rating': rating
+            'rating': rating,
+            'review': movie.review
+        
 
         }
         
@@ -110,3 +113,50 @@ def add_movie(request):
             {'error': str(e)},
             status=400
         )
+    
+@csrf_exempt    
+def review_movie(request, movie_id):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            review_text = data.get('review')
+            rating= data.get('rating')
+
+            
+            movie = Movie.objects.get(id=movie_id)
+            movie.review = review_text
+            movie.rating = rating
+            movie.save()
+            
+            return JsonResponse({
+                'message': 'Review submitted successfully',
+                'review': {
+                    'id': movie.id,
+                    'content': movie.review,
+                    'rating': movie.rating
+                }
+            }, status=200)
+        except Movie.DoesNotExist:
+            return JsonResponse({'error': 'Movie not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    
+    elif request.method == 'GET':
+        try:
+            movie = Movie.objects.get(id=movie_id)
+            if movie.review:
+                return JsonResponse({
+                    'review': {
+                        'id': movie.id,
+                        'content': movie.review,
+                        'rating': movie.rating
+
+                    }
+                }, status=200)
+            return JsonResponse({'message': 'No review exists'}, status=200)
+        except Movie.DoesNotExist:
+            return JsonResponse({'error': 'Movie not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    
+    return JsonResponse({'error': 'Invalid request method'}, status=400)

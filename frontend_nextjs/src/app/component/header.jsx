@@ -27,7 +27,7 @@ export default function Header() {
               <button className="text-lg text-gray-800 hover:text-black dark:text-gray-300 dark:hover:text-white
               transition-all duration-300 ease-out
               hover:scale-105 hover:underline hover:underline-offset-4 flex items-center">
-                Interests
+                Hobbies
                 <svg className="ml-1.5 h-4 w-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
@@ -48,7 +48,7 @@ export default function Header() {
                   transition-all duration-300
                   hover:scale-[1.02] hover:underline hover:underline-offset-4"
                 >
-                  Movies
+                  Shows
                 </Link>
               </div>
             </div>
