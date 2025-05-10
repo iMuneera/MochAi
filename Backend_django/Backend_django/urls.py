@@ -49,5 +49,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('',include('Movies.urls')),
     path('',include('Books.urls')),
+    path('',include('StudyTracker.urls')),
 
 ]

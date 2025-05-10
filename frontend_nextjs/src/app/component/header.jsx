@@ -50,8 +50,20 @@ export default function Header() {
                 >
                   Shows
                 </Link>
+
+       
+
               </div>
+           
             </div>
+               <Link 
+                  href="/StudyTracker" 
+                  className="block text-base text-gray-800 hover:text-black dark:text-gray-300 dark:hover:text-white
+                  transition-all duration-300
+                  hover:scale-[1.02] hover:underline hover:underline-offset-4"
+                >
+                  Learning
+                </Link>
           </nav>
 
           <button className="md:hidden p-2 text-gray-800 hover:text-black dark:text-gray-300 dark:hover:text-white
