@@ -44,3 +44,13 @@ def new_language(request):
         return JsonResponse({'status': 'error', 'message': f'Missing field: {str(e)}'}, status=400)
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+ 
+    
+@csrf_exempt
+def get_studyPlan(request):
+    study_plans  = StudyTracker.objects.all().values('id', 'subject', 'goal', 'start_date','proficiency_level')
+    print(study_plans )
+    return JsonResponse(
+        {'studyPlan': list(study_plans)},
+        status=200
+    )

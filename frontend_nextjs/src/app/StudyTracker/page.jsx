@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import BasicSelect from './selects';
 import TailwindDateTimePicker from './Calendar';
+import Viewstudytracker from './Viewstudy';
 
 function Page() {
   const [language, setLanguage] = useState('');
@@ -10,6 +11,7 @@ function Page() {
   const [proficiency, setProficiency] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const[studyupdated, setStudyUpdated] = useState(false);
 
 
   const handleSubmit = async () => {
@@ -33,7 +35,11 @@ function Page() {
       if (response.ok) {
         const data = await response.json();
         console.log('Success:', data);
-        // Handle success (e.g., redirect or show a success message)
+        setStudyUpdated(!studyupdated); 
+        setLanguage('');
+        setGoal('');
+        setStartdate(new Date());
+        setProficiency('');
       } else {
         console.error('Error:', errorData);
         setError('Failed to create learning plan');
@@ -104,7 +110,7 @@ function Page() {
             />
           </div>
         </div>
-
+  
         <button 
           onClick={handleSubmit}
           disabled={loading}
@@ -118,7 +124,9 @@ function Page() {
             {error}
           </div>
         )}
+          
       </div>
+        <Viewstudytracker key={studyupdated} />
     </div>
   )
 }
