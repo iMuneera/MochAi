@@ -49,8 +49,11 @@ def new_language(request):
 @csrf_exempt
 def get_studyPlan(request):
     study_plans  = StudyTracker.objects.all().values('id', 'subject', 'goal', 'start_date','proficiency_level')
+    study_plans = study_plans.order_by('-id')
     print(study_plans )
+    subject_count = study_plans.count()
     return JsonResponse(
-        {'studyPlan': list(study_plans)},
+        {'studyPlan': list(study_plans)
+         , 'subject_count': subject_count},
         status=200
     )
