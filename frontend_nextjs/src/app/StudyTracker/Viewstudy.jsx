@@ -3,19 +3,35 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Viewstudytracker() {
     const [studyPlan, setStudyPlan] = useState([]);
-    const[studycount, setStudyCount] = useState(0);
+    const [studycount, setStudyCount] = useState(0);
     const [loading, setLoading] = useState(true);
-    
-    const fetchStudyPlan = async () => {
+
+    const deleteStudyPlan = async (id) => {
         setLoading(true);
         try {
-            const response = await fetch('http://localhost:8000/get_studyPlan/', {
-                method: 'GET',
+            const response = await fetch(`http://localhost:8000/delete_studyPlan/${id}/`, {
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
+            if (!response.ok) {
+                throw new Error('Failed to delete studyPlan');
+            }
+            // Refresh the list after deletion
+            fetchStudyPlan();
+        } catch (error) {
+            console.error('Error deleting studyPlan:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
+    const fetchStudyPlan = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch('http://localhost:8000/get_studyPlan/');
+            
             if (!response.ok) {
                 throw new Error('Failed to fetch studyPlan');
             }
@@ -62,8 +78,6 @@ export default function Viewstudytracker() {
                             </div>
                         )}
                         {studyPlan.map((plan) => (
-
-
                             <div 
                                 key={plan.id} 
                                 className="bg-gray-800 hover:bg-gray-700 rounded-lg p-5 border border-gray-700 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 hover:border-blue-500/30"
@@ -86,6 +100,12 @@ export default function Viewstudytracker() {
                                             <span className="text-gray-400">Proficiency:</span>
                                             <span className="text-blue-400 font-medium">{plan.proficiency_level}</span>
                                         </div>
+                                        <button 
+                                            className="text-red-500 hover:text-red-700 text-sm mt-2"
+                                            onClick={() => deleteStudyPlan(plan.id)}
+                                        >
+                                            Delete 
+                                        </button>
                                     </div>
                                 </div>
                             </div>

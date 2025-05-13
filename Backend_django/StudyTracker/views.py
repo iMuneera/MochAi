@@ -52,8 +52,20 @@ def get_studyPlan(request):
     study_plans = study_plans.order_by('-id')
     print(study_plans )
     subject_count = study_plans.count()
+
+
     return JsonResponse(
         {'studyPlan': list(study_plans)
          , 'subject_count': subject_count},
         status=200
     )
+@csrf_exempt
+def delete_studyPlan(request, id):
+    try:
+        study_plan = StudyTracker.objects.get(id=id)
+        study_plan.delete()
+        return JsonResponse({'status': 'success', 'message': 'Study plan deleted successfully'}, status=200)
+    except StudyTracker.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'Study plan not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
