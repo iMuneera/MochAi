@@ -2,11 +2,11 @@ import React from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default function TailwindDateTimePicker({ value, onChange }) {
+export default function TailwindDateTimePicker({ selected, onChange }) {
   return (
     <div className="w-full">
       <DatePicker
-        selected={value}
+        selected={selected}
         onChange={onChange}
         showTimeSelect
         timeFormat="HH:mm"

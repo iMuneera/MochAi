@@ -11,11 +11,13 @@ function Page() {
   const [proficiency, setProficiency] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const[studyupdated, setStudyUpdated] = useState(false);
-
+  const [studyupdated, setStudyUpdated] = useState(false);
 
   const handleSubmit = async () => {
     console.log({ language, goal, startdate, proficiency });
+    // Make sure to format the date properly before sending to the backend
+    const formattedDate = startdate.toISOString();
+    
     setLoading(true);
     setError(null);
     try {
@@ -27,7 +29,7 @@ function Page() {
         body: JSON.stringify({ 
           language, 
           goal,
-          startdate, 
+          startdate: formattedDate,  // Use the formatted date
           proficiency 
         }),
       });
@@ -38,9 +40,10 @@ function Page() {
         setStudyUpdated(!studyupdated); 
         setLanguage('');
         setGoal('');
-        setStartdate(new Date());
+        setStartdate(new Date());  // Reset to current date
         setProficiency('');
       } else {
+        const errorData = await response.json();
         console.error('Error:', errorData);
         setError('Failed to create learning plan');
       }
@@ -51,6 +54,7 @@ function Page() {
       setLoading(false);
     }
   };
+
 
   return (
     <div className='flex flex-col items-center py-24 h-screen '>
@@ -89,14 +93,16 @@ function Page() {
               required
             />
           </div>
-
-          <div className='pt-2'>
+    <div className='pt-2'>
             <label className='block text-sm font-medium text-gray-300 mb-2'>
               Starting date
             </label>
             <TailwindDateTimePicker 
-              value={startdate} 
-              onChange={(date) => setStartdate(date)}
+              selected={startdate}  // Make sure to use 'selected' prop
+              onChange={(date) => {
+                console.log("Selected date:", date);  // Debug log
+                setStartdate(date);
+              }}
             />
           </div>
 
