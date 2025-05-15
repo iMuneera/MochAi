@@ -50,5 +50,6 @@ urlpatterns = [
     path('',include('Movies.urls')),
     path('',include('Books.urls')),
     path('',include('StudyTracker.urls')),
+    path('',include('Notes.urls')),
 
 ]
