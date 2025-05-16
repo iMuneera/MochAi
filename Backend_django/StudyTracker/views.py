@@ -80,13 +80,8 @@ def get_studyPlan(request):
             'status': 'error',
             'message': str(e)
         }, status=500)
-    
 
-    return JsonResponse(
-        {'studyPlan': list(study_plans)
-         , 'subject_count': subject_count},
-        status=200
-    )
+
 @csrf_exempt
 def delete_studyPlan(request, id):
     try:
@@ -110,20 +105,16 @@ def complete_studyPlan(request, id):
                 'message': 'Study plan already completed'
             }, status=202)
             
-        # Get the start date from the database record
         start_date = study_plan.start_date
         completed_date = datetime.now().date()
-        
-        # Calculate time taken in days
+
         time_taken = (completed_date - start_date).days
-        
-        # Update the study plan
+
         study_plan.completed = True
         study_plan.completed_date = completed_date
         study_plan.time_taken = time_taken
         study_plan.save()
-        
-        # Return all relevant data
+  
         return JsonResponse({
             'status': 'success',
             'message': 'Study plan marked as completed',

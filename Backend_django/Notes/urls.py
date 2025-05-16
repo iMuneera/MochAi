@@ -4,5 +4,7 @@ from . import views
 
 urlpatterns = [
     path('Fileupload/', views.Fileupload, name='Fileupload'),
+    path('getpdf/', views.getpdf, name='getpdf'),
+
 
 ]

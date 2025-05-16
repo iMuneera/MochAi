@@ -18,7 +18,8 @@ from django.urls import path, include
 from django.contrib.auth.models import User
 from django.contrib import admin
 from rest_framework import routers, serializers, viewsets
-
+from django.conf import settings
+from django.conf.urls.static import static
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -52,4 +53,4 @@ urlpatterns = [
     path('',include('StudyTracker.urls')),
     path('',include('Notes.urls')),
 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

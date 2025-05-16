@@ -15,11 +15,13 @@
     "@mui/material": "^7.1.0",
     "@mui/styled-engine-sc": "^7.1.0",
     "@mui/x-date-pickers": "^8.3.0",
+    "@simplepdf/react-embed-pdf": "^1.9.0",
     "dayjs": "^1.11.13",
     "next": "15.3.1",
     "react": "^19.0.0",
     "react-datepicker": "^8.3.0",
     "react-dom": "^19.0.0",
+    "react-pdf": "^9.2.1",
     "react-scroll-parallax": "^3.4.5",
     "styled-components": "^6.1.18"
   },

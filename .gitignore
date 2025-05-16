@@ -7,8 +7,6 @@ __pycache__/
 .env.*
 
 # === Django ===
-
-Backend_django/media/
 Backend_django/staticfiles/
 Backend_django/__pycache__/
 Backend_django/*.pyc
