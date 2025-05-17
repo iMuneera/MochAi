@@ -2,7 +2,8 @@
 import React, { useState } from 'react'
 import BasicSelect from './selects';
 import TailwindDateTimePicker from './Calendar';
-import Viewstudytracker from './Viewstudy';
+import Viewstudytracker from './studyplan/page';
+
 
 function Page() {
   const [language, setLanguage] = useState('');

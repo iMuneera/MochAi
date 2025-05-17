@@ -59,9 +59,7 @@ export default function ReviewModal({
         }),
       });
 
-      if (!response.ok) {
-        throw new Error(response.statusText || 'Failed to submit review');
-      }
+  
 
       const data = await response.json();
      onReviewUpdate({

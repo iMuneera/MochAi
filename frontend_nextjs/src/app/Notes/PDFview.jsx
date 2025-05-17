@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { EmbedPDF } from '@simplepdf/react-embed-pdf';
+import { useEffect } from 'react';
 
 export default function PDFViewer() {
   const [pdfs, setPdfs] = useState([]);
@@ -27,14 +28,6 @@ export default function PDFViewer() {
 
           // Verify the URL returns a PDF
           const testResponse = await fetch(pdfUrl);
-          if (
-            !testResponse.ok ||
-            !testResponse.headers.get('content-type')?.includes('application/pdf')
-          ) {
-            console.warn(`URL does not return a valid PDF: ${pdfUrl}`);
-            return null;
-          }
-
           return {
             url: pdfUrl,
             id: note.id ,

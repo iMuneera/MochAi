@@ -1,4 +1,4 @@
-import * as React from 'react';
+
 import {
   OutlinedInput,
   InputLabel,
@@ -9,24 +9,16 @@ import {
   Checkbox,
 
 } from '@mui/material';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
 
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
 
 export default function StudyPlanSelect({ onSelectionChange }) {
-  const [selectedPlans, setSelectedPlans] = React.useState([]);
-  const [studyPlans, setStudyPlans] = React.useState([]);
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState(null);
+  const [selectedPlans, setSelectedPlans] = useState([]);
+  const [studyPlans, setStudyPlans] =useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] =useState(null);
 
   const fetchStudyPlans = async () => {
     setLoading(true);
@@ -35,14 +27,15 @@ export default function StudyPlanSelect({ onSelectionChange }) {
       const response = await fetch('http://localhost:8000/get_studyPlan/');
       const data = await response.json();
       const activePlans = data.studyPlan.filter(plan => !plan.completed);
-      setStudyPlans(activePlans);
-    } catch (error) {
+      setStudyPlans(activePlans); } 
+
+    catch (error) {
       setError(error.message);
       console.error('Error fetching study plans:', error);
     } 
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchStudyPlans();
   }, []);
 
@@ -71,7 +64,7 @@ const handleChange = (event) => {
         onChange={handleChange}
         input={<OutlinedInput label="Study plan" />}
         renderValue={(selected) => selected.join('')}
-        MenuProps={MenuProps}
+ 
       >
         {studyPlans.map((plan) => (
           <MenuItem key={plan.id} value={plan.subject}>

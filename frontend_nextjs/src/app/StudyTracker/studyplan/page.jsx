@@ -1,5 +1,9 @@
-import React, { useState, useEffect } from 'react';
+
+'use client'
 import CircularProgress from '@mui/material/CircularProgress';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import CompletePlan from './complete';
 
 export default function Viewstudytracker() {
 
@@ -8,23 +12,27 @@ export default function Viewstudytracker() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const handlePlanComplete = (completedPlanId, completedPlanData) => {
+        setStudyPlan(prev => prev.filter(plan => plan.id !== completedPlanId));
+        setCompletedPlans(prev => [completedPlanData, ...prev]);
+    };
+
     const deleteStudyPlan = async (id) => {
         try {
-            // Optimistic update
             setStudyPlan(prev => prev.filter(plan => plan.id !== id));
             setCompletedPlans(prev => prev.filter(plan => plan.id !== id));
-            
+
             const response = await fetch(`http://localhost:8000/delete_studyPlan/${id}/`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
-            
+
             if (!response.ok) {
                 throw new Error('Failed to delete study plan');
             }
-            
+
         } catch (error) {
             setError(error.message);
             console.error('Error deleting study plan:', error);
@@ -32,62 +40,34 @@ export default function Viewstudytracker() {
         }
     };
 
-    const completeStudyPlan = async (id) => {
+
+    const fetchStudyPlan = async () => {
+        setLoading(true);
+        setError(null);
+
         try {
-            const response = await fetch(`http://localhost:8000/complete_studyPlan/${id}/`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            
+            const response = await fetch('http://localhost:8000/get_studyPlan/');
+
             if (!response.ok) {
-                throw new Error('Failed to complete study plan');
+                throw new Error('Failed to fetch study plans');
             }
-            
-            const result = await response.json();
-            
-            // Update state based on backend response
-            setStudyPlan(prev => prev.filter(plan => plan.id !== id));
-            setCompletedPlans(prev => [
-                result.study_plan,
-                ...prev
-            ]);
-            
+
+            const data = await response.json();
+
+            // Separate active and completed plans
+            const activePlans = data.studyPlan.filter(plan => !plan.completed);
+            const completedPlans = data.studyPlan.filter(plan => plan.completed);
+
+            setStudyPlan(activePlans);
+            setCompletedPlans(completedPlans);
+
         } catch (error) {
             setError(error.message);
-            console.error('Error completing study plan:', error);
-            fetchStudyPlan();
+            console.error('Error fetching study plans:', error);
+        } finally {
+            setLoading(false);
         }
     };
-
-const fetchStudyPlan = async () => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-        const response = await fetch('http://localhost:8000/get_studyPlan/');
-        
-        if (!response.ok) {
-            throw new Error('Failed to fetch study plans');
-        }
-
-        const data = await response.json();
-        
-        // Separate active and completed plans
-        const activePlans = data.studyPlan.filter(plan => !plan.completed);
-        const completedPlans = data.studyPlan.filter(plan => plan.completed);
-        
-        setStudyPlan(activePlans);
-        setCompletedPlans(completedPlans);
-        
-    } catch (error) {
-        setError(error.message);
-        console.error('Error fetching study plans:', error);
-    } finally {
-        setLoading(false);
-    }
-};
     useEffect(() => {
         fetchStudyPlan();
     }, []);
@@ -99,13 +79,13 @@ const fetchStudyPlan = async () => {
                     My Study Plans
                     <span className="block w-20 h-1 bg-blue-500 mt-2 rounded-full"></span>
                 </h1>
-                
+
                 {error && (
                     <div className="mb-6 p-4 bg-red-900/50 text-red-300 rounded-lg">
                         Error: {error}
                     </div>
                 )}
-                
+
                 {loading ? (
                     <div className="flex justify-center items-center h-64">
                         <CircularProgress style={{ color: '#3B82F6' }} />
@@ -120,7 +100,7 @@ const fetchStudyPlan = async () => {
                     </div>
                 ) : (
                     <>
-                
+
                         <div className="mb-12">
                             <div className="flex justify-between items-center mb-6 pb-2 border-b border-gray-700">
                                 <h2 className="text-xl font-bold text-white">
@@ -128,12 +108,12 @@ const fetchStudyPlan = async () => {
                                 </h2>
                                 <span className="block w-16 h-1 bg-blue-500 rounded-full"></span>
                             </div>
-                            
+
                             {studyPlan.length > 0 ? (
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                     {studyPlan.map((plan) => (
-                                        <div 
-                                            key={plan.id} 
+                                        <div
+                                            key={plan.id}
                                             className=" bg-blue-700/20 hover:shadow-blue-500/10 hover:border-blue-500/50 rounded-lg p-5 border border-gray-700 transition-all duration-300 hover:shadow-lg "
                                         >
                                             <div className="flex flex-col h-full">
@@ -159,18 +139,22 @@ const fetchStudyPlan = async () => {
                                                         </span>
                                                     </div>
                                                     <div className="flex justify-between mt-4">
-                                                        <button 
+                                                        <button
                                                             className="text-red-500 hover:text-red-400 text-sm font-medium"
                                                             onClick={() => deleteStudyPlan(plan.id)}
                                                         >
                                                             Delete
                                                         </button>
-                                                        <button 
-                                                            className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm font-medium"
-                                                            onClick={() => completeStudyPlan(plan.id)}
-                                                        >
-                                                            Mark as Complete
-                                                        </button>
+
+                                                        <CompletePlan
+                                                            planId={plan.id}
+                                                            onComplete={handlePlanComplete}
+                                                        />
+
+
+
+
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -184,7 +168,7 @@ const fetchStudyPlan = async () => {
                             )}
                         </div>
 
-                  
+
                         {completedPlans.length > 0 && (
                             <div className="mt-12">
                                 <div className="flex justify-between items-center mb-6 pb-2 border-b border-gray-700">
@@ -195,10 +179,10 @@ const fetchStudyPlan = async () => {
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                     {completedPlans.map((plan) => (
-                                        <div 
-                                            key={plan.id} 
+                                        <a
+                                            key={plan.id}
                                             className="bg-green-900/20 hover:bg-green-900/30 rounded-lg p-5 border border-green-700/30 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/10 hover:border-green-500/50"
-                                        >
+                                            href={`/StudyTracker/studyplan/${plan.id}`}>
                                             <div className="flex flex-col h-full">
                                                 <div className="flex items-center mb-3">
                                                     <div className="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
@@ -215,24 +199,24 @@ const fetchStudyPlan = async () => {
                                                             {new Date(plan.start_date).toLocaleDateString()}
                                                         </span>
                                                     </div>
-                                             <div className="flex justify-between text-sm">
-    <span className="text-gray-400">Completed:</span>
-    <span className="text-gray-300">
-        {plan.completed_date ? 
-            new Date(plan.completed_date).toLocaleDateString() : 
-            'N/A'}
-    </span>
-</div>
-<div className="flex justify-between text-sm">
-    <span className="text-gray-400">Time Taken:</span>
-    <span className="text-green-400 font-medium">
-        {plan.time_taken !== null && plan.time_taken !== undefined ? 
-            `${plan.time_taken} day${plan.time_taken !== 1 ? 's' : ''}` : 
-            'N/A'}
-    </span>
-</div>
+                                                    <div className="flex justify-between text-sm">
+                                                        <span className="text-gray-400">Completed:</span>
+                                                        <span className="text-gray-300">
+                                                            {plan.completed_date ?
+                                                                new Date(plan.completed_date).toLocaleDateString() :
+                                                                'N/A'}
+                                                        </span>
+                                                    </div>
+                                                    <div className="flex justify-between text-sm">
+                                                        <span className="text-gray-400">Time Taken:</span>
+                                                        <span className="text-green-400 font-medium">
+                                                            {plan.time_taken !== null && plan.time_taken !== undefined ?
+                                                                `${plan.time_taken} day${plan.time_taken !== 1 ? 's' : ''}` :
+                                                                'N/A'}
+                                                        </span>
+                                                    </div>
                                                     <div className="flex justify-end mt-4">
-                                                        <button 
+                                                        <button
                                                             className="text-red-500 hover:text-red-400 text-sm font-medium"
                                                             onClick={() => deleteStudyPlan(plan.id)}
                                                         >
@@ -241,7 +225,7 @@ const fetchStudyPlan = async () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     ))}
                                 </div>
                             </div>
