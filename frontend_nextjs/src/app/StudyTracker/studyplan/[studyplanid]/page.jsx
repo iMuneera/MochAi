@@ -101,11 +101,10 @@ export default function Studyplan({ params }) {
                 </div>
 
                 {/* Main Card with Conditional Styling */}
-                <div className={`rounded-lg p-5 border transition-all duration-300 hover:shadow-lg h-full ${
-                    currentPlan.completed 
+                <div className={`rounded-lg p-5 border transition-all duration-300 hover:shadow-lg h-full ${currentPlan.completed
                         ? 'bg-green-900/20 hover:bg-green-900/30 border-green-700/30 hover:shadow-green-500/10 hover:border-green-500/50'
                         : 'bg-red-900/20 hover:bg-red-900/30 border-red-700/30 hover:shadow-red-500/10 hover:border-red-500/50'
-                }`}>
+                    }`}>
                     {/* Card Header */}
                     <div className="text-white p-6 sm:p-8">
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
@@ -119,11 +118,10 @@ export default function Studyplan({ params }) {
                                 <p className="mt-2 text-blue-100 max-w-2xl">{currentPlan.goal}</p>
                             </div>
                             <div className="mt-4 sm:mt-0">
-                                <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
-                                    currentPlan.completed 
-                                        ? 'bg-green-100 text-green-800' 
+                                <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${currentPlan.completed
+                                        ? 'bg-green-100 text-green-800'
                                         : 'bg-yellow-100 text-yellow-800'
-                                }`}>
+                                    }`}>
                                     {currentPlan.completed ? 'Completed' : 'In Progress'}
                                 </span>
                             </div>
@@ -154,57 +152,57 @@ export default function Studyplan({ params }) {
                                         </div>
                                     </li>
 
-                                
-                                        <li className="flex items-start">
-                                            <div className="flex-shrink-0 h-6 w-6 text-green-500">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                                </svg>
-                                            </div>
-                                            <div className="ml-3">
-                                                <p className="text-lg text-gray-100">Completion date</p>
-                                                <p className="text-lg font-bold text-gray-900">
-                                                    {currentPlan.completed_date === null || currentPlan.completed_date === undefined
-                                                        ? 'not completed yet'
-                                                        : currentPlan.completed
-                                                           
-                                                           }    
-                                                            
-                                              
-                                                    {currentPlan.completed && currentPlan.completed_date
-                                                        ? new Date(currentPlan.completed_date).toLocaleDateString('en-US', {
-                                                            year: 'numeric',
-                                                            month: 'long',
-                                                            day: 'numeric'
-                                                        })
-                                                        : null}
-                                                </p>
-                                            </div>
-                                        </li>
-                                
 
-                                  
-                                        <li className="flex items-start">
-                                            <div className="flex-shrink-0 h-6 w-6 text-indigo-500">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                </svg>
-                                            </div>
-                                            <div className="ml-3">
-                                                <p className="text-lg text-gray-100">Time taken</p>
-                                                <p className="text-lg font-bold text-gray-900">
-                                                    {currentPlan.time_taken !== null && currentPlan.time_taken !== undefined
-                                                        ? (currentPlan.time_taken === 0 
-                                                            ? 'You finished this plan in the same day 🎉'
-                                                            : `${currentPlan.time_taken} day${currentPlan.time_taken !== 1 ? 's' : ''}`)
-                                                        : 'not completed yet'}
-                                                </p>
-                                            </div>
-                                        </li>
-                                  
+                                    <li className="flex items-start">
+                                        <div className="flex-shrink-0 h-6 w-6 text-green-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                            </svg>
+                                        </div>
+                                        <div className="ml-3">
+                                            <p className="text-lg text-gray-100">Completion date</p>
+                                            <p className="text-lg font-bold text-gray-900">
+                                                {currentPlan.completed_date === null || currentPlan.completed_date === undefined
+                                                    ? 'not completed yet'
+                                                    : currentPlan.completed
+
+                                                }
+
+
+                                                {currentPlan.completed && currentPlan.completed_date
+                                                    ? new Date(currentPlan.completed_date).toLocaleDateString('en-US', {
+                                                        year: 'numeric',
+                                                        month: 'long',
+                                                        day: 'numeric'
+                                                    })
+                                                    : null}
+                                            </p>
+                                        </div>
+                                    </li>
+
+
+
+                                    <li className="flex items-start">
+                                        <div className="flex-shrink-0 h-6 w-6 text-indigo-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </div>
+                                        <div className="ml-3">
+                                            <p className="text-lg text-gray-100">Time taken</p>
+                                            <p className="text-lg font-bold text-gray-900">
+                                                {currentPlan.time_taken !== null && currentPlan.time_taken !== undefined
+                                                    ? (currentPlan.time_taken === 0
+                                                        ? 'You finished this plan in the same day 🎉'
+                                                        : `${currentPlan.time_taken} day${currentPlan.time_taken !== 1 ? 's' : ''}`)
+                                                    : 'not completed yet'}
+                                            </p>
+                                        </div>
+                                    </li>
+
                                 </ul>
                             </div>
-                            <div className="pb-6"> 
+                            <div className="pb-6">
                                 <h2 className="text-lg font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-200">Progress</h2>
                                 <div className="space-y-4">
                                     <div>
@@ -214,40 +212,36 @@ export default function Studyplan({ params }) {
                                         </div>
                                         <div className="w-full bg-gray-200 rounded-full h-2.5">
                                             <div
-                                                className={`h-2.5 rounded-full ${
-                                                    currentPlan.completed ? 'bg-green-500' : 'bg-blue-500'
-                                                }`}
+                                                className={`h-2.5 rounded-full ${currentPlan.completed ? 'bg-green-500' : 'bg-blue-500'
+                                                    }`}
                                                 style={{ width: currentPlan.completed ? '100%' : '50%' }}
                                             ></div>
                                         </div>
                                     </div>
 
-                                    <div className={`p-4 rounded-lg ${
-                                        currentPlan.completed 
-                                            ? 'bg-green-50' 
+                                    <div className={`p-4 rounded-lg ${currentPlan.completed
+                                            ? 'bg-green-50'
                                             : 'bg-blue-50'
-                                    }`}>
+                                        }`}>
                                         <div className="flex">
                                             <div className="flex-shrink-0">
-                                                <svg 
-                                                    className={`h-5 w-5 ${
-                                                        currentPlan.completed 
-                                                            ? 'text-green-400' 
+                                                <svg
+                                                    className={`h-5 w-5 ${currentPlan.completed
+                                                            ? 'text-green-400'
                                                             : 'text-blue-400'
-                                                    }`} 
-                                                    xmlns="http://www.w3.org/2000/svg" 
-                                                    viewBox="0 0 20 20" 
+                                                        }`}
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20"
                                                     fill="currentColor"
                                                 >
                                                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                                                 </svg>
                                             </div>
                                             <div className="ml-3">
-                                                <p className={`text-sm ${
-                                                    currentPlan.completed 
-                                                        ? 'text-green-700' 
+                                                <p className={`text-sm ${currentPlan.completed
+                                                        ? 'text-green-700'
                                                         : 'text-blue-700'
-                                                }`}>
+                                                    }`}>
                                                     {currentPlan.completed
                                                         ? "🎉 You've successfully completed this study plan!"
                                                         : "💪 Keep going! You're making great progress."}
@@ -260,12 +254,13 @@ export default function Studyplan({ params }) {
                         </div>
                     </div>
 
-                    {/* Card Footer */}
                     <div className="px-6 py-4 sm:px-8 flex justify-end">
                         {currentPlan.completed ? (
-                            <a href={`/StudyTracker/plannnote/`}
-                            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Review Plan
+                            <a
+                                href={`/StudyTracker/studyplan/${currentPlan.id}/notes/`}
+                                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            >
+                                 View Notes
                                 <svg className="ml-2 -mr-1 w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                     <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
                                 </svg>
