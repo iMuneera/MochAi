@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
 import { 
   Box, Card, CardContent, Typography, 
   CircularProgress, Alert, Grid
@@ -17,11 +16,12 @@ export default function PlanNote({ params }) {
     useEffect(() => {
         const fetchNotes = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/get_note/${studyplanid}/`);
+                const response = await fetch(`http://localhost:8000/get_notes/${studyplanid}/`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch notes');
                 }
                 const data = await response.json();
+                console.log('data',data);
                 setNotes(data);
                 
                 // If there's a noteid in URL, find that note, otherwise select first

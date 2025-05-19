@@ -30,11 +30,11 @@ def create_note(request):
     
 
 @csrf_exempt
-def get_note(request, studyplanid):
+def get_notes(request, studyplanid):
     if request.method == 'GET':
         try:
             notes = Note.objects.filter(studyid_id=studyplanid).order_by('-created_at')
-            
+            print("Notes fetched:", notes)  # Debugging line
             if not notes.exists():
                 return JsonResponse([], safe=False)  # Return empty array if no notes
             
@@ -59,3 +59,20 @@ def get_note(request, studyplanid):
         {'error': 'Invalid request method'},
         status=400
     )
+
+def get_notes_by_id(request, note_id):
+    print("Fetching note with ID:", note_id)  # Debugging line
+    try:
+        note = Note.objects.select_related('studyid').get(id=note_id)
+        print("Note fetched:", note)  # Debugging line
+        print("StudyTracker subject:", note.studyid.subject if note.studyid else "No subject")  # Debugging line
+        note_data = {
+            'id': note.id,
+            'title': note.title,
+            'content': note.content,
+            'created_at': note.created_at.isoformat() if note.created_at else None,
+            'subject': note.studyid.subject if note.studyid else "No subject"
+        }
+        return JsonResponse(note_data)
+    except Note.DoesNotExist:
+        return JsonResponse({'error': 'Note not found'}, status=404)
