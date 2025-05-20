@@ -254,7 +254,7 @@ export default function Studyplan({ params }) {
                         </div>
                     </div>
 
-                    <div className="px-6 py-4 sm:px-8 flex justify-end">
+                    <div className="px-6 py-4 sm:px-8 flex justify-end space-x-4">
                      
                             <a
                                 href={`/StudyTracker/studyplan/${currentPlan.id}/notes/`}

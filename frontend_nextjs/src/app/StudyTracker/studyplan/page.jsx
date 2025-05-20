@@ -102,7 +102,7 @@ export default function Viewstudytracker() {
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                                     {studyPlan.map((plan) => (
 
-                                        <div key={plan.id} className="flex flex-col bg-blue-700/20 hover:shadow-blue-500/10 hover:border-blue-500/50 rounded-lg p-5 border border-gray-700 transition-all duration-300 hover:shadow-lg flex-grow">
+                                        <div key={plan.id} className="flex flex-col bg-blue-700/20 hover:shadow-blue-500/10 hover:border-blue-500/50 rounded-lg p-9 border border-gray-700 transition-all duration-300 hover:shadow-lg flex-grow">
                                             <a href={`/StudyTracker/studyplan/${plan.id}`}>
                                                 <div className="flex flex-col h-full">
                                                     <div className="flex items-center mb-3">
@@ -129,7 +129,7 @@ export default function Viewstudytracker() {
                                                     </div>
                                                 </div>
                                             </a>
-                                            <div className="flex justify-between mt-4">
+                                            <div className="flex justify-between mt-4 space-x-9">
                                                 <Delete
                                                     planId={plan.id}
                                                     onDeleteSuccess={handleDeleteSuccess}
